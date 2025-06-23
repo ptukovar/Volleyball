@@ -1,0 +1,10 @@
+.env
+node_modules/
+dist/
+venv/
+logs/
+build/
+.vscode/
+.DS_Store
+tmp/
+package-lock.json
