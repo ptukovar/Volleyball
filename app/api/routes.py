@@ -6,6 +6,7 @@ from app.schemas.player import PlayerCreate, PlayerRead
 from app.schemas.game import GameCreate, GameRead
 from app.schemas.game_result import GameResultCreate, GameResultRead
 from app.schemas.game_player import GamePlayerCreate, GamePlayerRead
+from app.schemas.player_stats import PlayerStats
 
 import app.crud.player as player_crud
 import app.crud.game as game_crud
@@ -44,4 +45,10 @@ def add_player(game_id: int, gp: GamePlayerCreate, db: Session = Depends(get_db)
 def set_result(game_id: int, result: GameResultCreate, db: Session = Depends(get_db)):
     return game_result_crud.set_game_result(db=db, game_id=game_id, game_result=result)
 
+@api_router.get("players/{player_id}/stats", response_model=PlayerStats)
+def read_player_stats(player_id: int, db: Session = Depends(get_db)):
+    if not player_crud.get_player(db, player_id):
+        raise HTTPException(status_code=404, detail="Player not found")
+    stats = player_crud.get_player_stats(db, player_id)
+    return stats
 
