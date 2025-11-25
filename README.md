@@ -1,5 +1,10 @@
 # Volleyball
 
+## Setup
+```bash
+pip install requirements.txt
+```
+
 ## Frontend
 ```bash
 npm run dev
