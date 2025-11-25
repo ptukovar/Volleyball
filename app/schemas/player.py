@@ -1,9 +1,12 @@
-from typing import Optional
 from pydantic import BaseModel
 
 class PlayerBase(BaseModel):
-    name: str
-    image: Optional[str] = None
+    first_name: str
+    last_name: str
+    nickname: str
+    role: int
+    password: str
+    image: str
     
 class PlayerCreate(PlayerBase):
     pass
@@ -11,6 +14,5 @@ class PlayerCreate(PlayerBase):
 class PlayerRead(PlayerBase):
     id: int
     
-    model_config = {
-        "from_attributes": True
-    }
+    class Config:
+        orm_mode = True

@@ -1,17 +1,20 @@
+from typing import Optional
 from pydantic import BaseModel
 
 class GameResultBase(BaseModel):
-    team1_score: int
-    team2_score: int
+    sets_team1: int
+    sets_team2: int
+    mvp:        Optional[int] = None
+    impostor:   Optional[int] = None
 
 class GameResultCreate(GameResultBase):
-    id: int
-    game_id: int
-    
+    pass
+
 class GameResultRead(GameResultBase):
-    id: int
-    
-    model_config = {
-        "from_attributes": True
-    }
-        
+    id:      int
+    game_id: int
+    mvp:        Optional[int] = None
+    impostor:   Optional[int] = None
+
+    class Config:
+        orm_mode = True

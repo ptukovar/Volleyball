@@ -11,6 +11,5 @@ class GamePlayerRead(GamePlayerBase):
     id: int
     game_id: int
     
-    model_config = {
-        "from_attributes": True
-    }
+    class Config:
+        orm_mode = True

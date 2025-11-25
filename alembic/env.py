@@ -1,20 +1,25 @@
-import os
-from dotenv import load_dotenv
-load_dotenv()
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+from app.db.base import Base
+import os
+from dotenv import load_dotenv
+from app.db.base    import Base
+from app.models.game        import Game
+from app.models.game_player import GamePlayer
+from app.models.game_result import GameResult
+from app.models.game_set    import GameSet
 
+load_dotenv()
 config = context.config
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-from app.db.base import Base
-import app.models
+
 target_metadata = Base.metadata
 
 db_url = os.getenv("DATABASE_URL")
@@ -22,7 +27,6 @@ if not db_url:
     raise RuntimeError("DATABASE_URL není nastaveno v .env")
 config.set_main_option("sqlalchemy.url", db_url)
 
-# ─── MIGRAČNÍ FUNKCE ────────────────────────────────────────────────────
 def run_migrations_offline() -> None:
     url = config.get_main_option("sqlalchemy.url")
     context.configure(

@@ -7,11 +7,16 @@ class PlayerStats(BaseModel):
     win_rate: float
     wins_team1: int
     wins_team2: int
-    avg_score_for: float
-    avg_score_against: float
-    avg_score_for_win: float
+    total_sets: int
+    sets_won: int
+    sets_lost: int
+    sets_win_rate: float
+    avg_winning_points: float
+    avg_losing_points: float
+    avg_points: float
+    mvp_count: int
+    impostor_count: int
     
-    model_config = {
-        "from_attributes": True,
-    }
+    class Config:
+        orm_mode = True
     
